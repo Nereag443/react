@@ -1,14 +1,15 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 
-interface Columna<T, K extends keyof T> {
+interface Column<T, K extends keyof T> {
     key: K;
     label: string;
-    render?: (value: T[K]) => React.ReactNode;
+    render?: (value: T[K]) => ReactNode;
 }
 
 interface DataTableProps<T> {
     data: T[];
-    columns: Columna<T, keyof T>[];
+    columns: Column<T, keyof T>[];
     onSave?: (index: number, updatedData: T) => void;
 }
 
@@ -27,7 +28,7 @@ export function DataTable<T>({ data, columns, onSave }: DataTableProps<T>) {
                 </tr>
             </thead>
             <tbody>
-                {data.map((item, i) => (
+                {data.map((item: T, i: number) => (
                     <tr key={i}>
                         {columns.map((column) => {
                             const value = item[column.key];
@@ -39,7 +40,7 @@ export function DataTable<T>({ data, columns, onSave }: DataTableProps<T>) {
                                             value={String(edited[column.key] ?? value)}
                                             onChange={(e) => setEdited({
                                                 ...edited,
-                                                [column.key]: e.target.value,
+                                                [column.key]: e.target.value as T[typeof column.key],
                                             })}
                                         />
                                     ) : (

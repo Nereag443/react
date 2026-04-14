@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { calculateDaysDifference } from './utils/date-utils'  
+import { calculateDaysDifference } from './date-utils'  
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
